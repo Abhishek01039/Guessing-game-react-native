@@ -7,13 +7,19 @@ import { ImageBackground } from "react-native";
 import GameScreen from "./screens/GameScreen";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Colors from "./constants/color";
+import GameOverScreen from "./screens/GameOverScreen";
 
 export default function App() {
   const [userNumber, setUserNumber] = useState<number>();
+  const [gameIsOver, setGameIsOver] = useState<boolean>(false);
 
   function getScreen() {
+    if (gameIsOver && userNumber) {
+      return <GameOverScreen />;
+    }
+
     if (userNumber) {
-      return <GameScreen />;
+      return <GameScreen userNumber={userNumber} setGameIsOver={() => setGameIsOver(true)} />;
     }
 
     return <StartGameScreen setUserNumber={setUserNumber} />;
