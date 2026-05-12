@@ -1,13 +1,16 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import Colors from "../constants/color";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-interface PrimaryButtonProps {
-  title: String;
+type IoniconName = React.ComponentProps<typeof Ionicons>["name"];
+
+interface PrimaryIconButtonProps {
+  title: IoniconName;
   onPress: () => void;
   size?: number;
 }
 
-const PrimaryButton = ({ title, onPress, size }: PrimaryButtonProps) => {
+const PrimaryIconButton = ({ title, onPress, size }: PrimaryIconButtonProps) => {
   return (
     <View style={styles.container}>
       <Pressable
@@ -15,16 +18,19 @@ const PrimaryButton = ({ title, onPress, size }: PrimaryButtonProps) => {
         onPress={onPress}
         android_ripple={{ color: Colors.rippleColor, foreground: true }}
       >
-        <Text style={[styles.buttonText, { fontSize: size }]}>{title}</Text>
+        {/* <div style={{ justifyContent: "center" }}> */}
+        <Ionicons name={title} size={size} color="white" style={styles.icon} />
+        {/* </div> */}
       </Pressable>
     </View>
   );
 };
 
-export default PrimaryButton;
+export default PrimaryIconButton;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     borderRadius: 16,
     margin: 4,
     overflow: "hidden",
@@ -33,9 +39,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.primary600,
     paddingHorizontal: 16,
     paddingVertical: 8,
+    justifyContent: "center",
+    alignContent: "center",
   },
   buttonText: {
     color: "white",
     textAlign: "center",
+  },
+  icon: {
+    alignSelf: "center",
   },
 });

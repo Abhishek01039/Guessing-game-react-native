@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Colors from "../constants/color";
+import Card from "./Card";
 
 interface RandomNumberProps {
   generatedNumber: number;
@@ -8,7 +9,7 @@ interface RandomNumberProps {
 
 const RnadomNumber = ({ generatedNumber }: RandomNumberProps) => {
   return (
-    <View>
+    <View style={styles.view}>
       <Text style={styles.text}>{generatedNumber}</Text>
     </View>
   );
@@ -17,14 +18,15 @@ const RnadomNumber = ({ generatedNumber }: RandomNumberProps) => {
 export default RnadomNumber;
 
 const styles = StyleSheet.create({
+  view: {
+    borderWidth: 2,
+    borderColor: Colors.white,
+  },
   text: {
     fontSize: 42,
     fontWeight: "bold",
     color: Colors.secondary500,
-    borderWidth: 2,
-    borderColor: Colors.white,
-    padding: 16,
+    padding: 32,
     textAlign: "center",
-    marginBottom: 24,
   },
 });

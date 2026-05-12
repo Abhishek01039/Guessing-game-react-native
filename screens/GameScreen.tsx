@@ -1,14 +1,16 @@
-import { Text, View, StyleSheet, Alert } from "react-native";
-import Title from "../components/Title";
-import Colors from "../constants/color";
-import RnadomNumber from "../components/RnadomNumber";
 import { useEffect, useState } from "react";
-import RandomNumberGenerator from "../businessRule/randomNumberGenerator";
-import PrimaryButton from "../components/PrimaryButton";
+import { Alert, StyleSheet, View } from "react-native";
+import { randomNumberGenerator } from "../businessRule/randomNumberGenerator";
+import GameScreenButtons from "../components/GameScreenButtons";
+import LogList from "../components/Logs/LogList";
+import RnadomNumber from "../components/RnadomNumber";
+import Title from "../components/Title";
+import VerticalSpace from "../components/VerticalSpace";
+import Colors from "../constants/color";
 import RandomNumber from "../constants/randomNumber";
 
 interface GameScreenProps {
-  userNumber: number;
+  userNumber: number | undefined;
   setGameIsOver: () => void;
 }
 
@@ -16,7 +18,7 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
   const [generatedNumber, setGeneratedNumber] = useState<number>(0);
 
   useEffect(() => {
-    const number = RandomNumberGenerator({
+    const number = randomNumberGenerator({
       min: RandomNumber.min,
       max: RandomNumber.max,
     });
@@ -32,6 +34,8 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
     max: number;
     direction: "lower" | "greater";
   }) {
+    if (!userNumber) return;
+
     if (
       (direction === "lower" && max < userNumber) ||
       (direction === "greater" && min > userNumber)
@@ -42,7 +46,7 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
       return;
     }
 
-    const number = RandomNumberGenerator({ min, max });
+    const number: number = randomNumberGenerator({ min, max });
 
     console.log(number, userNumber);
 
@@ -57,7 +61,8 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
     <View style={styles.view}>
       <Title>Game Screen</Title>
       <RnadomNumber generatedNumber={generatedNumber} />
-      <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: 16 }}>
+      <VerticalSpace height={16} />
+      {/* <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: 16 }}>
         <PrimaryButton
           title="-"
           onPress={() =>
@@ -67,6 +72,7 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
               direction: "lower",
             })
           }
+          size={24}
         />
         <PrimaryButton
           title="+"
@@ -77,8 +83,17 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
               direction: "greater",
             })
           }
+          size={24}
         />
-      </View>
+      </View> */}
+      <GameScreenButtons
+        handleRandomNumberGenerator={handleRandomNumberGenerator}
+        generatedNumber={generatedNumber}
+        RandomNumber={RandomNumber}
+      />
+
+      {/* Logs */}
+      <LogList />
     </View>
   );
 };

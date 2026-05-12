@@ -1,12 +1,13 @@
-import { StyleSheet, Text } from "react-native";
+import { StyleSheet, Text, ViewStyle } from "react-native";
 import Colors from "../constants/color";
 
 interface TitleProps {
   children: React.ReactNode;
+  style?: ViewStyle;
 }
 
-const Title = ({ children }: TitleProps) => {
-  return <Text style={styles.title}>{children}</Text>;
+const Title = ({ children, style }: TitleProps) => {
+  return <Text style={[styles.title, style]}>{children}</Text>;
 };
 
 export default Title;

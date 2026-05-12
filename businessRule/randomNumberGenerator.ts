@@ -1,6 +1,6 @@
-const usedNumbers = new Set<number>();
+export const usedNumbers = new Set<number>();
 
-function RandomNumberGenerator({ min, max }: { min: number; max: number }): number {
+export function randomNumberGenerator({ min, max }: { min: number; max: number }): number {
   // Generate number between min and max that is not in usedNumbers
   if (usedNumbers.size >= 100) return 0;
 
@@ -13,4 +13,6 @@ function RandomNumberGenerator({ min, max }: { min: number; max: number }): numb
   return num;
 }
 
-export default RandomNumberGenerator;
+export function resetUsedNumbers() {
+  usedNumbers.clear();
+}
