@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { Alert, StyleSheet, View } from "react-native";
 import { randomNumberGenerator } from "../businessRule/randomNumberGenerator";
-import GameScreenButtons from "../components/GameScreenButtons";
+import GameScreenLandscapeContent from "../components/GameScreenLandscapeContent";
 import LogList from "../components/Logs/LogList";
-import RnadomNumber from "../components/RnadomNumber";
 import Title from "../components/Title";
-import VerticalSpace from "../components/VerticalSpace";
 import Colors from "../constants/color";
 import RandomNumber from "../constants/randomNumber";
 
@@ -60,38 +58,10 @@ const GameScreen = ({ userNumber, setGameIsOver }: GameScreenProps) => {
   return (
     <View style={styles.view}>
       <Title>Game Screen</Title>
-      <RnadomNumber generatedNumber={generatedNumber} />
-      <VerticalSpace height={16} />
-      {/* <View style={{ display: "flex", flexDirection: "row", justifyContent: "center", gap: 16 }}>
-        <PrimaryButton
-          title="-"
-          onPress={() =>
-            handleRandomNumberGenerator({
-              min: RandomNumber.min,
-              max: generatedNumber - 1,
-              direction: "lower",
-            })
-          }
-          size={24}
-        />
-        <PrimaryButton
-          title="+"
-          onPress={() =>
-            handleRandomNumberGenerator({
-              min: generatedNumber + 1,
-              max: RandomNumber.max,
-              direction: "greater",
-            })
-          }
-          size={24}
-        />
-      </View> */}
-      <GameScreenButtons
-        handleRandomNumberGenerator={handleRandomNumberGenerator}
+      <GameScreenLandscapeContent
         generatedNumber={generatedNumber}
-        RandomNumber={RandomNumber}
+        handleRandomNumberGenerator={handleRandomNumberGenerator}
       />
-
       {/* Logs */}
       <LogList />
     </View>
